@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF8">
+        <title>The Calculus Adventure</title>
+        <style>
+            canvas {
+                border:1px solid black;
+            }
+            #backgroundWork {
+                display:none;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <h1>The Game Goes Here</h1>
+        <h3>Logged in as <span id = "username"><%=username%></span></h3>
+        
+        <canvas id="mainDisplay" width = "1200px" height = "800px" ></canvas>
+
+        <div id = "backgroundWork">
+            <canvas id ="workingDisplay" width = "1200px" height = "800px" "></canvas>
+    
+            <canvas id ="texture" width = "1200px" height = "800px"></canvas>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <div id = "gone">
+            <script>var haveSave = <%=haveSave%></script>
+            <script type="text/javascript" src="AreaData/CalcTown2.js"></script>
+            <script type="text/javascript" src="AreaData/EvilLair.js"></script>
+            <script type="text/javascript" src="AreaData/Volcano.js"></script>
+            <script type="text/javascript" src="AreaData/IceDungeon.js"></script>
+            <script type="text/javascript" src="AreaData/Tower.js"></script>
+            <script type="text/javascript" src="AreaData/Cave1.js"></script>
+            <script type="text/javascript" src="AreaData/WorldMap2.js"></script>
+            <script type="text/javascript" src="AreaData/DerivativeDell.js"></script>
+            <script type="text/javascript" src="AreaData/CastleTown.js"></script>
+            <script type="text/javascript" src="AreaData/Forest1.js"></script>
+            <script type="text/javascript" src="AreaData/MountainPass1.js"></script>
+            <script type="text/javascript" src="AreaData/SineCity.js"></script>
+            <script type="text/javascript" src="AreaData/Snowville.js"></script>
+    
+            <script type="text/javascript" src="AIAttackNode.js"></script>
+            <script type="text/javascript" src="AICounterAttack.js"></script>
+            <script type="text/javascript" src="AICounterNode.js"></script>
+            <script type="text/javascript" src="AIQueueNode.js"></script>
+            <script type="text/javascript" src="AIRandomNode.js"></script>
+            <script type="text/javascript" src="AIResponseToAttack.js"></script>
+            <script type="text/javascript" src="AIResponseToStat.js"></script>
+    
+            <script type="text/javascript" src="GameEngine.js"></script>
+            <script type="text/javascript" src="ShopBank.js"></script>
+            <script type="text/javascript" src="Questions.js"></script>
+            <script type="text/javascript" src="Monster.js"></script>
+            <script type="text/javascript" src="MonsterLordCalculus.js"></script>
+    
+            <script type="text/javascript" src="Skill.js"></script>
+            <script type="text/javascript" src="Spell.js"></script>
+            <script type="text/javascript" src="Item.js"></script>
+            <script type="text/javascript" src="Weapon.js"></script>
+            <script type="text/javascript" src="Armor.js"></script>
+            <script type="text/javascript" src="TradeItem.js"></script>
+            <script type="text/javascript" src="KeyItem.js"></script>
+    
+            <script type="text/javascript" src="Battle.js"></script>
+            
+            <script type="text/javascript" src="StatusPanel.js"></script>
+            <script type="text/javascript" src="NPC.js"></script>
+            <script type="text/javascript" src="NPCQuestGiver.js"></script>
+            <script type="text/javascript" src="NPCCrystal.js"></script>
+            <script type="text/javascript" src="NPCBoss.js"></script>
+            <script type="text/javascript" src="NPCElder.js"></script>
+            <script type="text/javascript" src="Zone.js"></script>
+    
+            <script type="text/javascript" src="AreaCalcTown.js"></script>
+            <script type="text/javascript" src="AreaEvilLair.js"></script>
+            <script type="text/javascript" src="AreaVolcano.js"></script>
+            <script type="text/javascript" src="AreaIceDungeon.js"></script>
+            <script type="text/javascript" src="AreaTower.js"></script>
+            <script type="text/javascript" src="AreaCave.js"></script>
+            <script type="text/javascript" src="AreaOverWorld.js"></script>
+            <script type="text/javascript" src="AreaDerivativeDell.js"></script>
+            <script type="text/javascript" src="AreaCastleTown.js"></script>
+            <script type="text/javascript" src="AreaForest.js"></script>
+            <script type="text/javascript" src="AreaMountainPass.js"></script>
+            <script type="text/javascript" src="AreaSineCity.js"></script>
+            <script type="text/javascript" src="AreaSnowVille.js"></script>
+            
+            <script type="text/javascript" src="LoadingBar.js"></script>
+            <script type="text/javascript" src="Player.js"></script>
+            <script type="text/javascript" src="Question.js"></script>
+            <script type="text/javascript" src="Message.js"></script>
+            
+            <script type="text/javascript" src="LogNode.js"></script> 
+            <script type="text/javascript" src="RootNode.js"></script> 
+            <script type="text/javascript" src="FractionNode.js"></script>
+            <script type="text/javascript" src="ProductNode.js"></script>
+            <script type="text/javascript" src="ContentNode.js"></script>
+            <script type="text/javascript" src="TrigNode.js"></script>
+            <script type="text/javascript" src="ExponentNode.js"></script>
+            <script type="text/javascript" src="MultiNode.js"></script>
+    
+            <script type="text/javascript" src="Equation.js"></script>
+            <script type="text/javascript" src="GameWindow.js"></script>
+            <script type="text/javascript" src="NumberTyper.js"></script>
+            <script type="text/javascript" src="NameMaker.js"></script>
+            <script type="text/javascript" src="WindowMessage.js"></script>
+    
+            <script type="text/javascript" src="Animation.js"></script>
+            <script type="text/javascript" src="AnimationStandard.js"></script>
+            <script type="text/javascript" src="AnimationDamage.js"></script>
+            <script type="text/javascript" src="AnimationMonsterDeath.js"></script>
+            <script type="text/javascript" src="AnimationMonsterFlash.js"></script>
+            <script type="text/javascript" src="AnimationStrike.js"></script>
+            <script type="text/javascript" src="AnimationHeal.js"></script>
+            <script type="text/javascript" src="AnimationAbsoluteValue.js"></script>
+            <script type="text/javascript" src="AnimationAddPolynomial.js"></script>
+            <script type="text/javascript" src="AnimationAnnoy.js"></script>
+            <script type="text/javascript" src="AnimationAttackBoost.js"></script>
+            <script type="text/javascript" src="AnimationBite.js"></script>
+            <script type="text/javascript" src="AnimationBlizzardSphere.js"></script>
+            <script type="text/javascript" src="AnimationBreak.js"></script>
+            <script type="text/javascript" src="AnimationBreeze.js"></script>
+            <script type="text/javascript" src="AnimationCandy.js"></script>
+            <script type="text/javascript" src="AnimationCookie.js"></script>
+            <script type="text/javascript" src="AnimationCupcake.js"></script>
+            <script type="text/javascript" src="AnimationDarknessBlade.js"></script>
+            <script type="text/javascript" src="AnimationDefenseBuffer.js"></script>
+            <script type="text/javascript" src="AnimationDerivative.js"></script>
+            <script type="text/javascript" src="AnimationDivideBy2.js"></script>
+            <script type="text/javascript" src="AnimationDoubleDerivative.js"></script>
+            <script type="text/javascript" src="AnimationEther.js"></script>
+            <script type="text/javascript" src="AnimationEvaluateAnimate.js"></script>
+            <script type="text/javascript" src="AnimationExplosion.js"></script>
+            <script type="text/javascript" src="AnimationFluster.js"></script>
+            <script type="text/javascript" src="AnimationFrost.js"></script>
+            <script type="text/javascript" src="AnimationIntegrate.js"></script>
+            <script type="text/javascript" src="AnimationLog.js"></script>
+            <script type="text/javascript" src="AnimationMakeShield.js"></script>
+            <script type="text/javascript" src="AnimationPlague.js"></script>
+            <script type="text/javascript" src="AnimationPlayerDeath.js"></script>
+            <script type="text/javascript" src="AnimationPlayerShield.js"></script>
+            <script type="text/javascript" src="AnimationPlugIn.js"></script>
+            <script type="text/javascript" src="AnimationPlusC.js"></script>
+            <script type="text/javascript" src="AnimationPoke.js"></script>
+            <script type="text/javascript" src="AnimationPotion.js"></script>
+            <script type="text/javascript" src="AnimationPummel.js"></script>
+            <script type="text/javascript" src="AnimationRecalculate.js"></script>
+            <script type="text/javascript" src="AnimationRemoveTerm.js"></script>
+            <script type="text/javascript" src="AnimationRestore.js"></script>
+            <script type="text/javascript" src="AnimationShield.js"></script>
+            <script type="text/javascript" src="AnimationSPHeal.js"></script>
+            <script type="text/javascript" src="AnimationSPPotion.js"></script>
+            <script type="text/javascript" src="AnimationSquareRoot.js"></script>
+            <script type="text/javascript" src="AnimationStone.js"></script>
+            <script type="text/javascript" src="AnimationSubtractAmount1.js"></script>
+            <script type="text/javascript" src="AnimationThunderShock.js"></script>
+            <script type="text/javascript" src="AnimationUnshield.js"></script>
+            <script type="text/javascript" src="AnimationVSlash.js"></script>
+            <script type="text/javascript" src="AnimationWowDrink.js"></script>
+    
+            <script type="text/javascript" src="Task.js"></script>
+            <script type="text/javascript" src="TaskTradingPost.js"></script>
+            <script type="text/javascript" src="TaskTraining.js"></script>
+            <script type="text/javascript" src="TaskSkillsShop.js"></script>
+            <script type="text/javascript" src="TaskArmorShop.js"></script>
+            <script type="text/javascript" src="TaskWeaponShop.js"></script>
+            <script type="text/javascript" src="TaskInn.js"></script>
+            <script type="text/javascript" src="TaskItemShop.js"></script>
+            <script type="text/javascript" src="TaskMagicShop.js"></script>
+            <script type="text/javascript" src="TaskIntroScreen.js"></script>
+            <script type="text/javascript" src="TaskEndingScreen.js"></script>
+    
+            <script type="text/javascript" src="World.js"></script>
+            <script type="text/javascript" src="CalculusAdventure.js"></script>
+        </div>
+        
+        
+    </body>
+    
+    
+</html>
