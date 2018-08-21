@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Page</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>UserName</td>
+                <td>Player Name</td>
+                <td>Level</td>
+                <td>Progress</td>
+            </tr>
+            <% for(var i = 0; i < users.length; i++) { %>
+            <tr>
+                <td><%=users[i].username%></td>
+                <%if(typeof users[i].player === "undefined") { %>
+                    <td colspan = "3">No player data!</td>
+                <%} else {%>
+                    <td><a href = "/admin/<%= users[i]._id %>"><%=users[i].player.name%></a></td>
+                    <td><%=users[i].player.level%></td>
+                    <%var progress = 0; var message = "No progress"%>
+                    <%if(users[i].player.flags[0]) {progress = 1; message = "Defeated Earth Elemental"}%>
+                    <%if(users[i].player.flags[4]) {progress = 2; message = "Fixed First Bridge"}%>
+                    <%if(users[i].player.flags[1]) {progress = 3; message = "Defeated Mystic Dragon"}%>
+                    <%if(users[i].player.flags[5]) {progress = 4; message = "Fixed Second Bridge"}%>
+                    <%if(users[i].player.flags[2]) {progress = 5; message = "Defeated Sea Serpent"}%>
+                    <%if(users[i].player.flags[6]) {progress = 6; message = "Fixed Third Bridge"}%>
+                    <%if(users[i].player.flags[3]) {progress = 7; message = "Defeated Demon King"}%>
+                    <%if(users[i].player.flags[7]) {progress = 8; message = "Fixed Fourth Bridge"}%>
+                    <%var proString = "";%>
+                    <%for(var j = 0; j < 10; j++) { if(j < progress) proString += "*"; else proString += "-"} %>
+                    <td><%=proString + " " + message%></td>
+                <% } %>
+            </tr>
+            <%}%>
+        </table>
+    </body>
+</html>

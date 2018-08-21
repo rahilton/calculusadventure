@@ -7,6 +7,7 @@ var mongoose = require("mongoose");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var bodyParser = require("body-parser");
+var middleware = require("./middleware");
 
 var User = require("./user");
 
@@ -38,7 +39,7 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register", function(req,res) {
-    var newUser = {username:req.body.username};
+    var newUser = {username:req.body.username, admin:false};
     //console.log(newUser);
     User.register(newUser, req.body.password, function(err, user) {
         if(err) {
@@ -61,7 +62,7 @@ app.post("/login", passport.authenticate("local",
     
 });
 
-app.get("/game", function(req, res) {
+app.get("/game", middleware.isLoggedIn, function(req, res) {
     //console.log(req.session);
     User.findOne({username:req.session.passport.user}, function(err, user) {
         if(err) {
@@ -76,6 +77,18 @@ app.get("/game", function(req, res) {
         }
     });
     
+});
+
+app.get("/admin", middleware.isAdmin, function(req, res) {
+    User.find(function(err, users) {
+        if(err) {
+            console.log("Error getting users");
+            res.send("Error getting users");
+        }
+        else {
+            res.render("admin", {users:users});
+        }
+    });
 });
 
 // app.listen(process.env.PORT, process.env.IP, function(){
