@@ -56,7 +56,7 @@ app.post("/register", function(req,res) {
 app.post("/login", passport.authenticate("local", 
     {
         successRedirect: "/game",
-        failureRedirect: "/register"
+        failureRedirect: "/"
     }) , function(req, res) {
         console.log("Does this run?");
     
@@ -89,6 +89,58 @@ app.get("/admin", middleware.isAdmin, function(req, res) {
             res.render("admin", {users:users});
         }
     });
+});
+
+app.get("/admin/:id", middleware.isAdmin, function(req,res) {
+    User.findById(req.params.id, function(err, user) {
+        if(err) {
+            console.log("Error getting user");
+            res.send("Error getting user");
+        }
+        else {
+            res.render("player", {user:user});
+        }
+    });
+    
+    
+});
+
+app.get("/admin/:id/password", middleware.isAdmin, function(req,res) {
+    User.findById(req.params.id, function(err, user) {
+        if(err) {
+            console.log("Error getting user");
+            res.send("Error getting user");
+        }
+        else {
+            res.render("password", {user:user});
+        }
+    });
+});
+
+app.post("/admin/:id/password", middleware.isAdmin, function(req,res) {
+    if(req.body.password1 === req.body.password2) {
+        User.findById(req.params.id, function(err, user) {
+            if(err) {
+                console.log("Error getting user");
+                res.send("Error getting user");
+            }
+            else {
+                user.setPassword(req.body.password1, function(err, newUser) {
+                    if(err) {
+                        console.log("Error saving new password");
+                        res.send("Error saving new password");
+                    }
+                    else {
+                        user.save();
+                        res.redirect("/admin");
+                    }
+                });
+            }
+        });
+    }
+    else {
+        res.redirect("/admin/" + req.params.id + "/password");
+    }
 });
 
 // app.listen(process.env.PORT, process.env.IP, function(){

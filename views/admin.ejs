@@ -5,15 +5,17 @@
     </head>
     <body>
         <table>
+            <thead>
             <tr>
-                <td>UserName</td>
-                <td>Player Name</td>
-                <td>Level</td>
-                <td>Progress</td>
+                <th>UserName</th>
+                <th>Player Name</th>
+                <th>Level</th>
+                <th>Progress</th>
             </tr>
+            </thead>
             <% for(var i = 0; i < users.length; i++) { %>
             <tr>
-                <td><%=users[i].username%></td>
+                <td><a href = "/admin/<%= users[i]._id %>/password"><%=users[i].username%></a></td>
                 <%if(typeof users[i].player === "undefined") { %>
                     <td colspan = "3">No player data!</td>
                 <%} else {%>

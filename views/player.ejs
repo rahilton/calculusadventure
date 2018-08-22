@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> User Page </title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>User Name</td>
+                <td><%=user.username%></td>
+            </tr>
+            <tr>
+                <td>Player Name</td>
+                <td><%=user.player.name%></td>
+            </tr>
+            <tr>
+                <td>Level</td>
+                <td><%=user.player.level%></td>
+            </tr>
+            <tr>
+                <td>HP</td>
+                <td><%=user.player.hp%>/<%=user.player.hpMax%></td>
+            </tr>
+            <tr>
+                <td>SP</td>
+                <td><%=user.player.sp%>/<%=user.player.spMax%></td>
+            </tr>
+            <tr>
+                <td>MP</td>
+                <td><%=user.player.mp%>/<%=user.player.mpMax%></td>
+            </tr>
+            <tr>
+                <td>Strength</td>
+                <td><%=user.player.str%></td>
+            </tr>
+            <tr>
+                <td>Defense</td>
+                <td><%=user.player.def%></td>
+            </tr>
+            <tr>
+                <td>Experience</td>
+                <td><%=user.player.exp%></td>
+            </tr>
+            <tr>
+                <td>Gold</td>
+                <td><%=user.player.gold%></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Skill</th>
+                                <th>Level</th>
+                                <th>SP Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i = 0; i < user.player.activeSkills.length; i++) { %>
+                            <tr>
+                                <td>user.player.activeSkills[i].name</td>
+                                <%if(user.player.activeSkills[i].learned) {%>
+                                    <td><%=user.player.activeSkills[i].level%></td>
+                                <%} else {%>
+                                    <td><%=user.player.activeSkills[i].training%>/<%=user.player.activeSkills[i].trainingTotal%></td>
+                                <%}%>
+                                <td>user.player.activeSkills[i].cost</td>
+                            </tr>
+                            <%}%>
+                            <%for(var i = 0; i < user.player.passiveSkills.length; i++) { %>
+                            <tr>
+                                <td>user.player.passiveSkills[i].name</td>
+                                <%if(user.player.passiveSkills[i].learned) {%>
+                                    <td><%=user.player.passiveSkills[i].level%></td>
+                                <%} else {%>
+                                    <td><%=user.player.passiveSkills[i].training%>/<%=user.player.passiveSkills[i].trainingTotal%></td>
+                                <%}%>
+                                <td>user.player.passiveSkills[i].cost</td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Magic</th>
+                                <th>Level</th>
+                                <th>MP Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i = 0; i < user.player.magic.length; i++) { %>
+                            <tr>
+                                <td>user.player.magic[i].name</td>
+                                <%if(user.player.magic[i].learned) {%>
+                                    <td><%=user.player.magic[i].level%></td>
+                                <%} else {%>
+                                    <td><%=user.player.magic[i].training%>/<%=user.player.magic[i].trainingTotal%></td>
+                                <%}%>
+                                <td>user.player.magic[i].cost</td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i = 0; i < user.player.items.length; i++) { %>
+                            <tr>
+                                <td>user.player.items[i].name</td>
+                                <td>user.player.itemQuantity[i]</td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Trade Item</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i = 0; i < user.player.tradeItems.length; i++) { %>
+                            <tr>
+                                <td>user.player.tradeItems[i].name</td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Weapon</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i = 0; i < user.player.weaponInv.length; i++) { %>
+                            <tr>
+                                <td>user.player.weaponInv[i].name</td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Armor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i = 0; i < user.player.armorInv.length; i++) { %>
+                            <tr>
+                                <td>user.player.armorInv[i].name</td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Key Item</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(var i = 0; i < user.player.keyItems.length; i++) { %>
+                            <tr>
+                                <td>user.player.keyItems[i].name</td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            
+        </table>
+    </body>
+</html>

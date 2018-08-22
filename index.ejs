@@ -10,11 +10,15 @@
             #backgroundWork {
                 display:none;
             }
+            
+            .diag {
+                display:none;
+            }
         </style>
         
     </head>
     <body>
-        <h1>The Game Goes Here</h1>
+        <h1>Calculus Adventure</h1>
         <h3>Logged in as <span id = "username"><%=username%></span></h3>
         
         <canvas id="mainDisplay" width = "1200px" height = "800px" ></canvas>
@@ -24,6 +28,8 @@
     
             <canvas id ="texture" width = "1200px" height = "800px"></canvas>
         </div>
+        
+        <canvas class = "diag" id = "diagPanel" width = "500px" height = "500px"></canvas>
 
         <script src="/socket.io/socket.io.js"></script>
         <div id = "gone">

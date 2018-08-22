@@ -23,3 +23,7 @@ main.setSocket(socket);
 socket.on('found player', function (data) {
     main.loadPlayer(data.player);  
 });
+
+
+var code = document.getElementById("gone");
+code.innerHTML = "";
