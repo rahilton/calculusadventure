@@ -10,6 +10,7 @@ var bodyParser = require("body-parser");
 var middleware = require("./middleware");
 
 var User = require("./user");
+var AccountKey = require("./accountKey");
 
 app.use(express.static(__dirname + '/js'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -39,18 +40,41 @@ app.get("/register", function(req, res) {
 });
 
 app.post("/register", function(req,res) {
-    var newUser = {username:req.body.username, admin:false};
-    //console.log(newUser);
-    User.register(newUser, req.body.password, function(err, user) {
+    AccountKey.findOne({key:req.body.key}, function(err, key) {
         if(err) {
-            return res.redirect("/register");
+            console.log(err);
+            res.send("Error: Accessing database");
+        }
+        else if(key === null) {
+            res.send("Error: Activation Key Invalid.");
+        }
+        else if(key.used) {
+            res.send("Error: This activation key has been used");
         }
         else {
-            passport.authenticate("local")(req, res, function() {
-                res.redirect("/game");
+            AccountKey.findOneAndUpdate({key:key}, {used:true}, function(err, user) {
+                if(err) {
+                    console.log("Error using key");
+                }
+                else {
+                    var newUser = {username:req.body.username, admin:false};
+                    User.register(newUser, req.body.password, function(err, user) {
+                        if(err) {
+                            //return res.redirect("/register");
+                            res.send("User name is already used.");
+                        }
+                        else {
+                            passport.authenticate("local")(req, res, function() {
+                                res.redirect("/game");
+                            });
+                        }
+                    });
+                }
             });
+               
         }
-    });
+    })
+    
 });
 
 app.post("/login", passport.authenticate("local", 
@@ -86,8 +110,58 @@ app.get("/admin", middleware.isAdmin, function(req, res) {
             res.send("Error getting users");
         }
         else {
-            res.render("admin", {users:users});
+            AccountKey.find(function(err, keys) {
+                if(err) {
+                    console.log("Error getting keys");
+                    res.send("Error getting keys");
+                }
+                else {
+                    
+                    res.render("admin", {users:users, keys:keys});
+                }
+            });
         }
+    });
+});
+
+app.post("/admin", middleware.isAdmin, function(req, res) {
+    var make = function() {
+        var newKey = "";
+        for(var i = 0; i < 8; i++) {
+            newKey += String.fromCharCode(Math.random() * 26 + 65);
+        }
+        AccountKey.findOne({key:newKey}, function(err, key) {
+            if(err) {
+                console.log("Error finding key.");
+                res.redirect("/admin");
+            }
+            else if(key === null) {
+                AccountKey.create({key:newKey, first: req.body.first, last: req.body.last, used:false}, function(err, key) {
+                    if(err) {
+                        console.log("Error making key.");
+                        res.redirect("/admin");
+                    }
+                    else {
+                        res.redirect("/admin");
+                    }
+                });
+            }
+            else {
+                make();
+            }
+        });
+    };
+    make();
+    
+});
+
+app.post("/admin/deleteKey/:key", middleware.isAdmin, function(req, res) {
+    AccountKey.deleteOne({key:req.params.key}, function(err, key) {
+        if(err) {
+            console.log("Error deleting key.");
+            res.redirect("/admin");
+        }
+        res.redirect("/admin");
     });
 });
 

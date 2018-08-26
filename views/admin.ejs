@@ -37,5 +37,38 @@
             </tr>
             <%}%>
         </table>
+        <h2>Activation Keys</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Used?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i = 0; i < keys.length; i++) { %>
+                <tr>
+                    <td><%=keys[i].key%></td>
+                    <td><%=keys[i].first%></td>
+                    <td><%=keys[i].last%></td>
+                    <td><%=keys[i].used%></td>
+                    <form method = "POST" action = "/admin/deleteKey/<%=keys[i].key%>">
+                        <td><input type = "submit" value = "Remove"></td>
+                    </form>
+                </tr>
+                <%}%>
+                <tr>
+                    <form method = "POST" action = "/admin">
+                        <td></td>
+                        <td><input type = "text" name = "first" placeholder = "first"></td>
+                        <td><input type = "text" name = "last" placeholder = "last"></td>
+                        <td></td>
+                        <td><input type = "submit" value = "Add"></td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>

@@ -36,7 +36,7 @@ class World {
 		*/
 
 		window.setTimeout(this.actionPerformed.bind(this),this.currentSpeed);
-		
+		this.infoPanel = new DiagnosticInfoPanel();
 	    
 		var can = document.getElementById("mainDisplay");
 		window.addEventListener("keydown", this.keyPressed.bind(this));
@@ -372,7 +372,8 @@ class World {
 				this.dWord = "";
 			}
 			else if(this.dWord  === this.DIAGKEY) {
-				// diagFrame.setVisible(true);
+				document.getElementById("diagPanel").classList.toggle("diag");
+				this.infoPanel.paintComponent();
 				// infoFrame.setVisible(true);
 				this.diagMode = true;
 			}
@@ -522,7 +523,8 @@ class World {
 			this.player.setAlwaysRepel(false);
 			this.diagMode = false;
 			// diagFrame.setVisible(false);
-			this.infoFrame.setVisible(false);
+			document.getElementById("diagPanel").classList.toggle("diag");
+			// this.infoFrame.setVisible(false);
 		}
 		
 		//change flag
@@ -538,7 +540,7 @@ class World {
 			this.infoPanel.setFlag(this.flagNum);
 		}
 		if(number == '3') {this.player.setFlag(this.flagNum, !this.player.getFlag(this.flagNum));this.infoPanel.setFlag(this.flagNum);}
-		
+		this.infoPanel.paintComponent();
 	}
 	
 	processFlags() {
