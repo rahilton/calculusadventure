@@ -58,7 +58,7 @@ app.post("/register", function(req,res) {
                 }
                 else {
                     //console.log(key);
-                    var newUser = {username:req.body.username, first:key.first, last:key.last, admin:false};
+                    var newUser = {username:req.body.username, first:key.first, last:key.last, admin:key.admin};
                     User.register(newUser, req.body.password, function(err, user) {
                         if(err) {
                             //return res.redirect("/register");
@@ -137,7 +137,7 @@ app.post("/admin", middleware.isAdmin, function(req, res) {
                 res.redirect("/admin");
             }
             else if(key === null) {
-                AccountKey.create({key:newKey, first: req.body.first, last: req.body.last, used:false}, function(err, key) {
+                AccountKey.create({key:newKey, first: req.body.first, last: req.body.last, used:false, admin:req.body.admin === 'on'}, function(err, key) {
                     if(err) {
                         console.log("Error making key.");
                         res.redirect("/admin");
