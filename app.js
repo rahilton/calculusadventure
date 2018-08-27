@@ -52,12 +52,13 @@ app.post("/register", function(req,res) {
             res.send("Error: This activation key has been used");
         }
         else {
-            AccountKey.findOneAndUpdate({key:key}, {used:true}, function(err, user) {
+            AccountKey.findOneAndUpdate({key:req.body.key}, {used:true}, function(err, key) {
                 if(err) {
                     console.log("Error using key");
                 }
                 else {
-                    var newUser = {username:req.body.username, admin:false};
+                    //console.log(key);
+                    var newUser = {username:req.body.username, first:key.first, last:key.last, admin:false};
                     User.register(newUser, req.body.password, function(err, user) {
                         if(err) {
                             //return res.redirect("/register");
