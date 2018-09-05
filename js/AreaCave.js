@@ -38,7 +38,7 @@ class AreaCave extends GameEngine {
 		var makeCrystal = true;
 		
 		for(var i = 0; i < this.player.getKeyItemCount(); i++) {
-			if(this.player.getKeyItem(i).getName().equals("Crystal of Earth"))
+			if(this.player.getKeyItem(i).getName() === "Crystal of Earth")
 				makeCrystal = false;
 		}
 		if(makeCrystal) {

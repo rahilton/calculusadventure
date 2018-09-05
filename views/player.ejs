@@ -60,24 +60,24 @@
                         <tbody>
                             <%for(var i = 0; i < user.player.activeSkills.length; i++) { %>
                             <tr>
-                                <td>user.player.activeSkills[i].name</td>
+                                <td><%=user.player.activeSkills[i].name%></td>
                                 <%if(user.player.activeSkills[i].learned) {%>
                                     <td><%=user.player.activeSkills[i].level%></td>
                                 <%} else {%>
                                     <td><%=user.player.activeSkills[i].training%>/<%=user.player.activeSkills[i].trainingTotal%></td>
                                 <%}%>
-                                <td>user.player.activeSkills[i].cost</td>
+                                <td><%=user.player.activeSkills[i].cost%></td>
                             </tr>
                             <%}%>
                             <%for(var i = 0; i < user.player.passiveSkills.length; i++) { %>
                             <tr>
-                                <td>user.player.passiveSkills[i].name</td>
+                                <td><%=user.player.passiveSkills[i].name%></td>
                                 <%if(user.player.passiveSkills[i].learned) {%>
                                     <td><%=user.player.passiveSkills[i].level%></td>
                                 <%} else {%>
                                     <td><%=user.player.passiveSkills[i].training%>/<%=user.player.passiveSkills[i].trainingTotal%></td>
                                 <%}%>
-                                <td>user.player.passiveSkills[i].cost</td>
+                                <td><%=user.player.passiveSkills[i].cost%></td>
                             </tr>
                             <%}%>
                         </tbody>
@@ -95,13 +95,13 @@
                         <tbody>
                             <%for(var i = 0; i < user.player.magic.length; i++) { %>
                             <tr>
-                                <td>user.player.magic[i].name</td>
+                                <td><%=user.player.magic[i].name%></td>
                                 <%if(user.player.magic[i].learned) {%>
                                     <td><%=user.player.magic[i].level%></td>
                                 <%} else {%>
                                     <td><%=user.player.magic[i].training%>/<%=user.player.magic[i].trainingTotal%></td>
                                 <%}%>
-                                <td>user.player.magic[i].cost</td>
+                                <td><%=user.player.magic[i].cost%></td>
                             </tr>
                             <%}%>
                         </tbody>
@@ -120,8 +120,8 @@
                         <tbody>
                             <%for(var i = 0; i < user.player.items.length; i++) { %>
                             <tr>
-                                <td>user.player.items[i].name</td>
-                                <td>user.player.itemQuantity[i]</td>
+                                <td><%=user.player.items[i].name%></td>
+                                <td><%=user.player.itemQuantity[i]%></td>
                             </tr>
                             <%}%>
                         </tbody>
@@ -137,7 +137,7 @@
                         <tbody>
                             <%for(var i = 0; i < user.player.tradeItems.length; i++) { %>
                             <tr>
-                                <td>user.player.tradeItems[i].name</td>
+                                <td><%=user.player.tradeItems[i].name%></td>
                             </tr>
                             <%}%>
                         </tbody>
@@ -155,7 +155,7 @@
                         <tbody>
                             <%for(var i = 0; i < user.player.weaponInv.length; i++) { %>
                             <tr>
-                                <td>user.player.weaponInv[i].name</td>
+                                <td><%=user.player.weaponInv[i].name%></td>
                             </tr>
                             <%}%>
                         </tbody>
@@ -171,7 +171,7 @@
                         <tbody>
                             <%for(var i = 0; i < user.player.armorInv.length; i++) { %>
                             <tr>
-                                <td>user.player.armorInv[i].name</td>
+                                <td><%=user.player.armorInv[i].name%></td>
                             </tr>
                             <%}%>
                         </tbody>
@@ -190,7 +190,7 @@
                         <tbody>
                             <%for(var i = 0; i < user.player.keyItems.length; i++) { %>
                             <tr>
-                                <td>user.player.keyItems[i].name</td>
+                                <td><%=user.player.keyItems[i].name%></td>
                             </tr>
                             <%}%>
                         </tbody>

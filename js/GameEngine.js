@@ -171,7 +171,7 @@ class GameEngine {
 				if(thirdMapTokens[j].indexOf('*') != -1) {
 					var aTile = thirdMapTokens[j].split("*");
 					for(var k = 0; k < 4; k++) {
-						// if(parseInt(aTile[k],10) == 0) continue;
+						 if(parseInt(aTile[k],10) == 0) continue;
 						// this.mapView.getContext("2d").drawImage(this.gfx, (parseInt(aTile[k],10))*32, (parseInt(aTile[k],10))*0, 16, 16,
 						// 												  j*64+32*(k%2),i*64+32*Math.floor(k/2),32,32);
 						this.mapView.getContext("2d").drawImage(this.gfx, (parseInt(aTile[k],10))*32, (parseInt(aTile[k],10))*0, 16, 16,

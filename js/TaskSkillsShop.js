@@ -277,7 +277,7 @@ class TaskSkillsShop extends Task{
 			if(i < this.windows[1].getMaxOptions()) {
 				this.windows[1].addImage(Skill.getTrainingProgress(skills[i+this.windows[1].getTopList()],700,75+ i*Equation.getYSize(GameWindow.DEFAULT_WINDOW_FONT_SIZE)));
 			}			
-			if(!isValid[i] === "Can Train") {
+			if(isValid[i] !== "Can Train") {
 				this.windows[1].setOptionValid(0, i, false);
 			}
 			else

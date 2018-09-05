@@ -18,6 +18,7 @@ class WindowMessage {
 	    if(typeof ap == "undefined") {
 	        ap = true;
 	    }
+	    if(typeof m === "undefined") debugger;
 	    this.message = m;
 		this.type = t;
 		this.id = i;

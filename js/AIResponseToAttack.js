@@ -11,7 +11,7 @@ class AIResponseToAttack {
     addNode(attack, newNode, repeat) {
 		this.nodes.push(newNode);
 		this.attacks.push(attack);
-		if(typeof repeat === undefined) {
+		if(typeof repeat === "undefined") {
 		    this.repeat.push(true);
         }
         else {

@@ -74,6 +74,7 @@ class MonsterLordCalculus extends Monster {
 	}
 	
 	printMonster(g) {
+		if(this.loadLock) return;
 		g.drawImage(this.monImage, 0,0,this.monImage.width,this.monImage.height, this.x, this.y, this.width, this.height);
 		
 		g.fillStyle = "black";

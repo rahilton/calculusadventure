@@ -145,7 +145,7 @@ class Spell {
 		if(itemNum == 1)
 			return new Spell("Heal", "Restores a small amount of HP.", 11,300, 3, [4,6,8,10,12,13,14,16,18,19]);
 		if(itemNum == 2)
-			return new Spell("Eq. Shield", "Creates an equation shield to protect you HP.",15, 1600,4, [14,16,17,18]);
+			return new Spell("Eq. Shield", "Creates an equation shield to protect your HP.",15, 1600,4, [14,16,17,18]);
 		if(itemNum == 3)
 			return new Spell("Dbl. Deriv.", "Takes the derivative of the monsters hit points twice.",14, 1600,5, [13,14,14,15,16,16,17,18]);
 		if(itemNum == 4)

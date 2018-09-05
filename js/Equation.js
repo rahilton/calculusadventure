@@ -4,7 +4,8 @@
 class Equation {
 	
 	constructor(s, si, process) {
-	    if(!si) si = 0;
+		//console.log(s);
+		if(!si) si = 0;
 	    if(typeof process == "undefined") process = true;
 	    if(process) {
 			for(var i = 0; i < s.length-1;i++) {

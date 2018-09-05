@@ -11,6 +11,7 @@ var middleware = require("./middleware");
 
 var User = require("./user");
 var AccountKey = require("./accountKey");
+var GlobalFlag = require("./globalFlag");
 
 app.use(express.static(__dirname + '/js'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -94,11 +95,19 @@ app.get("/game", middleware.isLoggedIn, function(req, res) {
             console.log("Error loading player");
         }
         else {
-            var haveSave = true;
-            if(typeof user.player === "undefined") {
-                haveSave = false;
-            }
-            res.render(__dirname + "/index.ejs", {username:req.session.passport.user, haveSave:haveSave});
+            GlobalFlag.find(function(err, flags) {
+                if(err) {
+                    console.log("Error loading flags");
+                }
+                else {
+                    var haveSave = true;
+                    if(typeof user.player === "undefined") {
+                        haveSave = false;
+                    }
+                    var theFlags = {weather:flags[0].weather, tide:flags[0].tide, sun:flags[0].sun};
+                    res.render(__dirname + "/index.ejs", {username:req.session.passport.user, haveSave:haveSave, globalFlags:theFlags});
+                }
+            });
         }
     });
     
@@ -117,8 +126,15 @@ app.get("/admin", middleware.isAdmin, function(req, res) {
                     res.send("Error getting keys");
                 }
                 else {
-                    
-                    res.render("admin", {users:users, keys:keys});
+                    GlobalFlag.find(function(err, flags) {
+                        if(err) {
+                            console.log("Error getting flags");
+                            res.send("Error getting flags");
+                        }
+                        else {
+                            res.render("admin", {users:users, keys:keys, flags:flags[0]});
+                        }
+                    });
                 }
             });
         }
@@ -164,6 +180,23 @@ app.post("/admin/deleteKey/:key", middleware.isAdmin, function(req, res) {
         }
         res.redirect("/admin");
     });
+});
+
+app.get("/admin/flags", middleware.isAdmin, function(req, res) {
+    GlobalFlag.find( function(err, flags) {
+        if(err) {
+            console.log("Error getting flags");
+            res.redirect("/admin");
+        }
+        else {
+            flags[0][req.query.type] = !flags[0][req.query.type];
+            GlobalFlag.findByIdAndUpdate(flags[0]._id, flags[0], function(err) {
+                if(err) console.log("Error Saving flag");
+                res.redirect("/admin");
+            });
+        }
+    });
+    
 });
 
 app.get("/admin/:id", middleware.isAdmin, function(req,res) {
@@ -217,6 +250,42 @@ app.post("/admin/:id/password", middleware.isAdmin, function(req,res) {
         res.redirect("/admin/" + req.params.id + "/password");
     }
 });
+
+app.post("/admin/:id/delete", middleware.isAdmin, function(req,res) {
+    User.deleteOne({_id:req.params.id}, function(err, user) {
+        if(err) {
+            console.log("Error deleting user");
+            res.send("Error deleting user");
+        }
+        else {
+            res.redirect("/admin");
+        }
+    });
+});
+
+app.get("/admin/:id/Unlock", middleware.isAdmin, function(req,res) {
+    User.findById(req.params.id, function(err, user) {
+        if(err) {
+            console.log("Error Unlocking");
+            res.redirect("/admin");
+        }
+        else {
+            if(req.query.type == "Weather")
+                user.player.flags[8] = true;
+            if(req.query.type == "Tide")
+                user.player.flags[9] = true;
+            if(req.query.type == "Sun")
+                user.player.flags[10] = true;
+            User.findByIdAndUpdate(req.params.id, {player:user.player}, function(err, user) {
+                if(err) {
+                    console.log(err);
+                }
+                res.redirect("/admin");
+            });
+        }
+    });
+});
+
 
 // app.listen(process.env.PORT, process.env.IP, function(){
 //     console.log("The Game server has started!");

@@ -610,7 +610,7 @@ class Monster {
 		if(att === "Darkness Blade") {
 			var temp2 = new Animation("Add Message",new WindowMessage("Darkness Blade",false));
 			var temp5 = new AnimationDarknessBlade(Battle.PLAYER_WINDOW_X1,Battle.PLAYER_WINDOW_Y1,Battle.PLAYER_WINDOW_X2-Battle.PLAYER_WINDOW_X1,Battle.PLAYER_WINDOW_Y2-Battle.PLAYER_WINDOW_Y1);
-			var monsterDamage = this.player.getHpMax() * 7 / 8 * -1;
+			var monsterDamage = Math.floor(this.player.getHpMax() * 7 / 8 * -1);
 			var temp6 = new Animation("Damage Player",monsterDamage);
 			var temp7 = new AnimationDamage("Damage",(Battle.PLAYER_WINDOW_X1+Battle.PLAYER_WINDOW_X2)/2,Battle.PLAYER_WINDOW_Y1+((Battle.PLAYER_WINDOW_Y2-Battle.PLAYER_WINDOW_Y1)*7)/8,monsterDamage);
 			temp1.setNext(temp2);temp2.setNext(temp3);temp3.setNext(temp4);temp4.setNext(temp5);temp5.setNext(temp6);temp6.setNext(temp7);temp7.setNext(temp8);temp8.setNext(temp9);temp9.setNext(temp10);

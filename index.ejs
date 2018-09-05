@@ -24,7 +24,7 @@
         <canvas id="mainDisplay" width = "1200px" height = "800px" ></canvas>
 
         <div id = "backgroundWork">
-            <canvas id ="workingDisplay" width = "1200px" height = "800px" "></canvas>
+            <canvas id ="workingDisplay" width = "1200px" height = "800px"></canvas>
     
             <canvas id ="texture" width = "1200px" height = "800px"></canvas>
         </div>
@@ -34,6 +34,7 @@
         <script src="/socket.io/socket.io.js"></script>
         <div id = "gone">
             <script>var haveSave = <%=haveSave%></script>
+            <script>var globalFlags = {weather:<%=globalFlags.weather%>, tide:<%=globalFlags.tide%>, sun:<%=globalFlags.sun%>}</script>
             <script type="text/javascript" src="AreaData/CalcTown2.js"></script>
             <script type="text/javascript" src="AreaData/EvilLair.js"></script>
             <script type="text/javascript" src="AreaData/Volcano.js"></script>

@@ -1,7 +1,8 @@
 class World {
 	
 	
-	constructor(user) {
+	constructor(user, flags) {
+		this.globalFlags = flags;
 		this.user = user;
         this.NUMBER_OF_AREAS = 23;
 	
@@ -182,10 +183,10 @@ class World {
 
 			
 			
-	        /*if(this.player.getFlag(4))*/ this.processMessage(new Message("Change Map",4));
-	        /*if(this.player.getFlag(5))*/ this.processMessage(new Message("Change Map",5));
-	        /*if(this.player.getFlag(6))*/ this.processMessage(new Message("Change Map",6));
-	        /*if(this.player.getFlag(7))*/ this.processMessage(new Message("Change Map",7));
+	        if(this.player.getFlag(4)) this.processMessage(new Message("Change Map",4));
+	        if(this.player.getFlag(5)) this.processMessage(new Message("Change Map",5));
+	        if(this.player.getFlag(6)) this.processMessage(new Message("Change Map",6));
+	        if(this.player.getFlag(7)) this.processMessage(new Message("Change Map",7));
 			
 			this.bar.addProgress();
 			
@@ -291,7 +292,7 @@ class World {
 			*/
 			this.current = this.bar;
 			this.bar.redraw();
-			this.makeWorld();
+			//this.makeWorld();
 		}
 		if(m.getType() === "Change Map") {
 			this.floors[0].giveMessage(m);
@@ -451,7 +452,7 @@ class World {
 		this.player = new Player(player);
 		this.loadLock = false;
 		this.processFlags();
-		window.setInterval(this.savePlayer.bind(this), 60000);
+		window.setInterval(this.savePlayer.bind(this), 30000);
 		
 	}
 	
@@ -506,13 +507,13 @@ class World {
 			this.infoPanel.setItem(this.itemNumber);
 		}
 		if(letter == 'u') {
-			if(this.selecting == 0) {var thing = Item.getItem(this.itemNumber); if(!thing.getName() === "Nothing") this.player.addItem(thing);}
-			if(this.selecting == 1) {var thing = Skill.getSkill(this.itemNumber); if(!thing.getName() === "Nothing") this.player.addSkillTraining(thing);}
-			if(this.selecting == 2) {var thing = Spell.getSpell(this.itemNumber); if(!thing.getName() === "Nothing") this.player.addSpellTraining(thing);}
-			if(this.selecting == 3) {var thing = Weapon.getWeapon(this.itemNumber); if(!thing.getName() === "Nothing") this.player.addWeapon(thing);}
-			if(this.selecting == 4) {var thing = Armor.getArmor(this.itemNumber); if(!thing.getName() === "Nothing") this.player.addArmor(thing);}
-			if(this.selecting == 5) {var thing = TradeItem.getItem(this.itemNumber); if(!thing.getName() === "Nothing") this.player.addTradeItem(thing);}
-			if(this.selecting == 6) {var thing = KeyItem.getKeyItem(this.itemNumber); if(!thing.getName() === "Nothing") this.player.addKeyItem(thing);}
+			if(this.selecting == 0) {var thing = Item.getItem(this.itemNumber); if(thing.getName() !== "Nothing") this.player.addItem(thing);}
+			if(this.selecting == 1) {var thing = Skill.getSkill(this.itemNumber); if(thing.getName() !== "Nothing") this.player.addSkillTraining(thing);}
+			if(this.selecting == 2) {var thing = Spell.getSpell(this.itemNumber); if(thing.getName() !== "Nothing") this.player.addSpellTraining(thing);}
+			if(this.selecting == 3) {var thing = Weapon.getWeapon(this.itemNumber); if(thing.getName() !== "Nothing") this.player.addWeapon(thing);}
+			if(this.selecting == 4) {var thing = Armor.getArmor(this.itemNumber); if(thing.getName() !== "Nothing") this.player.addArmor(thing);}
+			if(this.selecting == 5) {var thing = TradeItem.getItem(this.itemNumber); if(thing.getName() !== "Nothing") this.player.addTradeItem(thing);}
+			if(this.selecting == 6) {var thing = KeyItem.getKeyItem(this.itemNumber); if(thing.getName() !== "Nothing") this.player.addKeyItem(thing);}
 			if(this.current instanceof GameEngine && this.current.menuOpen) { this.current.populateItemWindow(); this.current.populateDescriptionWindow();}
 		}	
 		//toggle repel
@@ -528,7 +529,7 @@ class World {
 		}
 		
 		//change flag
-		var number = (code - 48 + '0');
+		var number = String.fromCharCode(code);
 		if(number == '1') {
 			this.flagNum--;
 			if(this.flagNum < 0) this.flagNum = 0;
@@ -544,9 +545,9 @@ class World {
 	}
 	
 	processFlags() {
-		//this.player.setFlag(8, true); // For getting through Lock 1
-		//this.player.setFlag(9, true); // For getting through Lock 2
-		//this.player.setFlag(10, true); // For getting through Lock 3
+		if(this.globalFlags.weather) this.player.setFlag(8, true); // For getting through Lock 1
+		if(this.globalFlags.tide) this.player.setFlag(9, true); // For getting through Lock 2
+		if(this.globalFlags.sun) this.player.setFlag(10, true); // For getting through Lock 3
 	}
 	
 	setSocket(sock) {

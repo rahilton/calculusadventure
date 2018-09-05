@@ -19,7 +19,7 @@ class AnimationDarknessBlade extends Animation{
 		this.blackScreen = document.createElement("canvas");
 		this.blackScreen.width = "1500";
 		this.blackScreen.height = "1000";
-		var gf = this.blackScreen.getGraphics();
+		var gf = this.blackScreen.getContext("2d");
 		gf.fillStyle = "black";
 		gf.fillRect(0, 0, 1500, 1000);
 		this.blackLevel = 0;
@@ -28,19 +28,20 @@ class AnimationDarknessBlade extends Animation{
 	
 	setBlack() {
 		var pix = this.blackScreen.getContext("2d").getImageData(0,0,1500,1000);
-		for(var i = 0; i < pix.length; i+=4) {
-			pix[i+3] = this.blackLevel;
+		for(var i = 0; i < pix.data.length; i+=4) {
+			pix.data[i+3] = this.blackLevel;
 		}
 		this.blackScreen.getContext("2d").putImageData(pix,0,0);
 		
 	}
 	
 	paintAnimation(g) {
+		
 	    if(this.loadLock) return;
 		g.drawImage(this.blackScreen, 0, 0);
 		if(this.tic < 16) {
 			this.blackLevel += 16;
-			if(this.blackLevel == 256) this.blackLevel = 255;
+			if(this.blackLevel >= 256) this.blackLevel = 255;
 			this.setBlack();
 		}
 		if(this.tic >= 40 && this.tic < 50) {

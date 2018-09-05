@@ -4,14 +4,19 @@
         <title>Admin Page</title>
     </head>
     <body>
+        <h2>Users</h2>
         <table>
             <thead>
             <tr>
                 <th>UserName</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Admin?</th>
                 <th>Player Name</th>
                 <th>Level</th>
+                <th>Weather</th>
+                <th>Tide</th>
+                <th>Sun</th>
                 <th>Progress</th>
             </tr>
             </thead>
@@ -20,17 +25,39 @@
                 <td><a href = "/admin/<%= users[i]._id %>/password"><%=users[i].username%></a></td>
                 <td><%=users[i].first%></td>
                 <td><%=users[i].last%></td>
+                <td><%=users[i].admin%></td>
                 <%if(typeof users[i].player === "undefined") { %>
-                    <td colspan = "3">No player data!</td>
-                <%} else {%>
+                    <td colspan = "6">No player data!</td>
+                <% } else { %>
                     <td><a href = "/admin/<%= users[i]._id %>"><%=users[i].player.name%></a></td>
                     <td><%=users[i].player.level%></td>
+                    <td>
+                        <% if(users[i].player.flags[8]) { %>
+                            Unlocked
+                        <% } else { %>
+                            <a href = "/admin/<%= users[i]._id %>/Unlock?type=Weather">Unlock?</a>
+                        <% } %>
+                    </td>
+                    <td>
+                        <% if(users[i].player.flags[9]) { %>
+                            Unlocked
+                        <% } else { %>
+                            <a href = "/admin/<%= users[i]._id %>/Unlock?type=Tide">Unlock?</a>
+                        <% } %>
+                    </td>
+                    <td>
+                        <% if(users[i].player.flags[10]) { %>
+                            Unlocked
+                        <% } else { %>
+                            <a href = "/admin/<%= users[i]._id %>/Unlock?type=Sun">Unlock?</a>
+                        <% } %>
+                    </td>
                     <%var progress = 0; var message = "No progress"%>
                     <%if(users[i].player.flags[0]) {progress = 1; message = "Defeated Earth Elemental"}%>
                     <%if(users[i].player.flags[4]) {progress = 2; message = "Fixed First Bridge"}%>
                     <%if(users[i].player.flags[1]) {progress = 3; message = "Defeated Mystic Dragon"}%>
                     <%if(users[i].player.flags[5]) {progress = 4; message = "Fixed Second Bridge"}%>
-                    <%if(users[i].player.flags[2]) {progress = 5; message = "Defeated Sea Serpent"}%>
+                    <%if(users[i].player.flags[2]) {progress = 5; message = "Defeated Ice Serpent"}%>
                     <%if(users[i].player.flags[6]) {progress = 6; message = "Fixed Third Bridge"}%>
                     <%if(users[i].player.flags[3]) {progress = 7; message = "Defeated Demon King"}%>
                     <%if(users[i].player.flags[7]) {progress = 8; message = "Fixed Fourth Bridge"}%>
@@ -74,6 +101,31 @@
                         <td><input type = "checkbox" name = "admin"></td>
                         <td><input type = "submit" value = "Add"></td>
                     </form>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Global Flags</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Weather</th>
+                    <th>Tide</th>
+                    <th>Sun</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Current Value</td>
+                    <td><%=flags.weather%></td>
+                    <td><%=flags.tide%></td>
+                    <td><%=flags.sun%></td>
+                </tr>
+                <tr>
+                    <td>Toggle?</td>
+                    <td><a href = "/admin/flags?type=weather">Toggle</a></td>
+                    <td><a href = "/admin/flags?type=tide">Toggle</a></td>
+                    <td><a href = "/admin/flags?type=sun">Toggle</a></td>
                 </tr>
             </tbody>
         </table>

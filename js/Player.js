@@ -27,7 +27,7 @@ class Player {
 			this.battleOptions = n.battleOptions;
 			this.boostTurns = n.boostTurns;
 			this.bufferTurns = n.bufferTurns;
-			this.character = n.character;
+			this.character = document.createElement("canvas");
 			this.def = n.def;
 			this.defenseBuffer = n.defenseBuffer;
 			this.diag = false;
@@ -38,7 +38,7 @@ class Player {
 			this.hp = n.hp;
 			this.hpMax = n.hpMax;
 			this.icons = n.icons;
-			this.itemCount = n.itenCount;
+			this.itemCount = n.itemCount;
 			this.itemQuantity = n.itemQuantity;
 			this.items = [];
 			for(var i = 0; i < n.items.length; i++) {
@@ -53,7 +53,10 @@ class Player {
 			this.lastAttack = n.lastAttack;
 			this.lastTown = n.lastTown;
 			this.level = n.level;
-			this.magic = n.magic;
+			this.magic = [];
+			for(var i = 0; i < n.magic.length; i++) {
+				this.magic[i] = new Spell(n.magic[i]);
+			}
 			this.magicCount = n.magicCount;
 			this.mp = n.mp;
 			this.mpMax = n.mpMax;
@@ -62,7 +65,7 @@ class Player {
 			for(var i = 0; i < n.passiveSkills.length; i++) {
 				this.passiveSkills[i] = new Skill(n.passiveSkills[i]);
 			}
-			this.passiveSkills = n.passiveSkills;
+			this.passiveSkillCount = n.passiveSkillCount;
 			this.repel = n.repel;
 			this.shieldColor = n.shieldColor;
 			this.sp = n.sp;
@@ -79,9 +82,10 @@ class Player {
 			this.weaponInv = [];
 			for(var i = 0; i < n.weaponInv.length; i++) {
 				this.weaponInv[i] = new Weapon(n.weaponInv[i]);
-				if(this.weaponInv[i].getName() === n.wieldedWeapon.name);
+				if(this.weaponInv[i].getName() === n.wieldedWeapon.name)
 					this.equipWeapon(i);
 			}
+			this.restorePlayerVariables();
 		}
 		else {
 		    if(!l) {
@@ -672,9 +676,10 @@ class Player {
 	}
 	
 	removeWeapon(ti) {
-		for(var i = ti; i < this.weaponCount-1; i++) {
-			this.weaponInv[i] = this.weaponInv[i+1];
-		}
+		this.weaponInv.splice(ti,1);
+		// for(var i = ti; i < this.weaponCount-1; i++) {
+		// 	this.weaponInv[i] = this.weaponInv[i+1];
+		// }
 		this.weaponCount--;
 	}
 	
@@ -704,9 +709,10 @@ class Player {
 	}
 	
 	removeArmor(ti) {
-		for(var i = ti; i < this.armorCount-1; i++) {
-			this.armorInv[i] = this.armorInv[i+1];
-		}
+		this.armorInv.splice(ti,1);
+		// for(var i = ti; i < this.armorCount-1; i++) {
+		// 	this.armorInv[i] = this.armorInv[i+1];
+		// }
 		this.armorCount--;
 	}
 	getItemCount() {
@@ -1385,7 +1391,7 @@ class Player {
 			var temp2 = new Animation("Open Message");
 			var temp3 = new Animation("Change SP", sk.getUseCost()*-1);
 			var temp4 = new Animation("Pause",16);
-			var temp5 = new Animation("Check Shield:Add Term "+action.substring(6));
+			var temp5 = new Animation("Check Shield:Term "+action.substring(6));
 			var temp6 = new AnimationAddPolynomial("Term: "+action.substring(6),m.getX(), m.getY(), m.getWidth(), m.getHeight(),m);
 			var temp7 = new Animation("Clear Message");
 			var temp8 = new Animation("Check Death");

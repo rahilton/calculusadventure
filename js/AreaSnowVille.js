@@ -15,7 +15,7 @@ class AreaSnowVille extends GameEngine {
 		guy.addMessage("The Crystal of Water can be found in the Ice Dungeon.");
 		this.npcs.push(guy);
 		guy = new NPC("chara4.png",2,13,34);
-		guy.addMessage("The Sea Serpent will require you to make his HP be in a certain range before you can defeat him.");
+		guy.addMessage("The Ice Serpent will require you to make his HP be in a certain range before you can defeat him.");
 		guy.setMoves(true);
 		guy.setFrequency(87);
 		this.npcs.push(guy);
@@ -30,7 +30,7 @@ class AreaSnowVille extends GameEngine {
 		guy.setFrequency(57);
 		this.npcs.push(guy);
 		guy = new NPC("chara4.png",6,17,34);
-		guy.addMessage("You must defeated the Ice Cube monster in one turn.");
+		guy.addMessage("You must defeat the Ice Cube monster in one turn.");
 		guy.setMoves(true);
 		guy.setFrequency(64);
 		this.npcs.push(guy);

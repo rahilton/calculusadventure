@@ -25,7 +25,7 @@ class AnimationWowDrink extends Animation{
 		//System.out.println(data.get(0) + " " + data.get(1) + " " + data.get(2) + " " + data.get(3));
 		
 		
-		g.drawImage(this.gfx, (this.frame%this.aniRowNumber)*this.aniWidth, Math.frame(this.frame/this.aniRowNumber)*this.aniHeight, this.aniWidth, this.aniHeight, 
+		g.drawImage(this.gfx, (this.frame%this.aniRowNumber)*this.aniWidth, Math.floor(this.frame/this.aniRowNumber)*this.aniHeight, this.aniWidth, this.aniHeight, 
 		                    this.data[0]-this.data[2], this.data[1]-this.data[2]-60, this.data[2]*3, this.data[3]*2+this.data[2]+60);
 		this.tic++;
 		this.frame++;

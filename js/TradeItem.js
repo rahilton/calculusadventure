@@ -1,6 +1,12 @@
 class TradeItem {
 	
 	constructor(n, d, c) {
+		if(typeof n === "object") {
+			this.name = n.name;
+			this.description = n.description;
+			this.cost = n.cost;
+			return;
+		}
 		this.name = n;
 		this.description = d;
 		this.cost = c;

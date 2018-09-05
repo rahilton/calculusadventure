@@ -1,5 +1,5 @@
 
-var main = new World(document.getElementById("username").innerHTML);
+var main = new World(document.getElementById("username").innerHTML, globalFlags);
 
 var myCanvas = document.getElementById("mainDisplay");
 myCanvas.width = document.documentElement.clientWidth*.8;
