@@ -19,8 +19,8 @@ class Player {
 			this.armorInv = [];
 			for(var i = 0; i < n.armorInv.length; i++) {
 				this.armorInv[i] = new Armor(n.armorInv[i]);
-				if(typeof n.wornAccess != "undefined" && this.armorInv[i].getName() === n.wornAccess.name) this.equipArmor(i);
-				if(typeof n.wornArmor != "undefined" && this.armorInv[i].getName() === n.wornArmor.name) this.equipArmor(i);
+				if(typeof n.wornAccess != "undefined" && n.wornAccess != null && this.armorInv[i].getName() === n.wornAccess.name) this.equipArmor(i);
+				if(typeof n.wornArmor != "undefined" && n.wornArmor != null && this.armorInv[i].getName() === n.wornArmor.name) this.equipArmor(i);
 			}
 			
 			this.attackBoost = n.attackBoost;
@@ -82,7 +82,7 @@ class Player {
 			this.weaponInv = [];
 			for(var i = 0; i < n.weaponInv.length; i++) {
 				this.weaponInv[i] = new Weapon(n.weaponInv[i]);
-				if(typeof n.wieldedWeapon != "undefined" && this.weaponInv[i].getName() === n.wieldedWeapon.name)
+				if(typeof n.wieldedWeapon != "undefined" && n.wieldedWeapon != null && this.weaponInv[i].getName() === n.wieldedWeapon.name)
 					this.equipWeapon(i);
 			}
 			this.restorePlayerVariables();
