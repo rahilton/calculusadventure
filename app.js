@@ -18,7 +18,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 
 //mongoose.connect("mongodb://localhost/calcgame");
-mongoose.connect("mongodb://rahilton:RITLAR1@ds127362.mlab.com:27362/calculusadventure");
+//mongoose.connect("mongodb://rahilton:RITLAR1@ds127362.mlab.com:27362/calculusadventure");
+mongoose.connect("mongodb+srv://rahilton:RITLAR@cluster0-glkrr.mongodb.net/calculusadventure?retryWrites=true&w=majority");
 
 //Passport configuration
 app.use(require("express-session")({
@@ -292,7 +293,7 @@ app.get("/admin/:id/Unlock", middleware.isAdmin, function(req,res) {
 // });
 
 
-server.listen(process.env.PORT, process.env.IP, function(){
+server.listen(process.env.PORT || 3000, process.env.IP, function(){
     console.log("The Game server has started!");
 });
 
